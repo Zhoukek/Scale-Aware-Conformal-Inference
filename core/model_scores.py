@@ -21,7 +21,7 @@ import pdb
 from tqdm import tqdm
 import random
 
-def set_all_seeds(seed):
+def set_all_seeds(seed=42):
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -50,8 +50,7 @@ def generate_forecasts(
         except:
             pass
 
-    GLOBAL_SEED = 1
-    set_all_seeds(GLOBAL_SEED)
+    set_all_seeds()
 
     input_chunk_length = kwargs.get('input_chunk_length')
     output_chunk_length = kwargs.get('fit_every')
