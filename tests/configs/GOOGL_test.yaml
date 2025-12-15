@@ -102,7 +102,7 @@ methods:
       - 0.1
       - 0.05
     steps_ahead: 1
-  RCI:
+  SACI:
     lrs:
       - 1 
       - 0.5 

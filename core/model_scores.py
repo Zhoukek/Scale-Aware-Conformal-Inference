@@ -53,7 +53,7 @@ def generate_forecasts(
     set_all_seeds()
 
     input_chunk_length = kwargs.get('input_chunk_length')
-    output_chunk_length = kwargs.get('fit_every')
+    output_chunk_length = kwargs.get('output_chunk_length')
     
     T = data.shape[0]
     forecasts = np.zeros((T,))

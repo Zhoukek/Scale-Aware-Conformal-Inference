@@ -8,7 +8,7 @@ score_function_name: "signed-residual"
 sequences:
   0:
     dataset: "AMZN"
-    fit_every: 1 
+    fit_every: 1
     input_chunk_length: 12
     log: True
     model_names: 
@@ -102,7 +102,7 @@ methods:
       - 0.1
       - 0.05
     steps_ahead: 1
-  RCI:
+  SACI:
     lrs:
       - 1 
       - 0.5 

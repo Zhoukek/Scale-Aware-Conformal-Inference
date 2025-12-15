@@ -86,3 +86,10 @@ methods:
       - 0.1
       - 0.05
     steps_ahead: 1
+  SACI:
+    lrs:
+      - 1 
+      - 0.5 
+      - 0.1
+      - 0.05
+    steps_ahead: 1
