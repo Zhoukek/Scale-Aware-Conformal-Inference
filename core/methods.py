@@ -13,10 +13,9 @@ from scipy.special import expit
 import random
 import torch
 
-def set_all_seeds(seed=1):
+def set_all_seeds(seed=42):
     random.seed(seed)
     np.random.seed(seed)
-    # PyTorch 相关的设置
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
@@ -100,6 +99,7 @@ def aci(
     *args,
     **kwargs
 ):
+    set_all_seeds()
     T_test = scores.shape[0]
     alphat = alpha
     qs = np.zeros((T_test,))
@@ -176,6 +176,7 @@ def quantile_integrator_log(
     *args,
     **kwargs
 ):
+    set_all_seeds()
     data = kwargs['data'] if 'data' in kwargs.keys() else None
     results = quantile_integrator_log_scorecaster(scores, alpha, lr, data, T_burnin, Csat, KI, True, ahead, proportional_lr=proportional_lr, scorecast=False)
     results['method'] = "Quantile+Integrator (log)"
@@ -190,6 +191,7 @@ def OGD(
     *args,
     **kwargs
 ):
+    set_all_seeds()
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -219,6 +221,7 @@ def SF_OGD(
     *args,
     **kwargs
 ):
+    set_all_seeds()
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -251,6 +254,7 @@ def decay_OGD(
     *args,
     **kwargs
 ):
+    set_all_seeds()
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -373,6 +377,7 @@ def ECI(
     *args,
     **kwargs
 ):
+    set_all_seeds()
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -436,6 +441,7 @@ def ECI_cutoff(
     *args,
     **kwargs
 ):
+    set_all_seeds()
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -496,6 +502,7 @@ def ECI_integral(
     *args,
     **kwargs
 ):
+    set_all_seeds()
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -552,6 +559,7 @@ def full_smoothed_eci(
     *args,
     **kwargs
 ):
+    set_all_seeds()
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -598,6 +606,7 @@ def smoothed_ogd(
     *args,
     **kwargs
 ):
+    set_all_seeds()
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -638,6 +647,7 @@ def LQT(
     *args,
     **kwargs
 ):
+    set_all_seeds()
     T_burnin = kwargs.get('T_burnin', 0)
     T_test = scores.shape[0]
     
@@ -709,6 +719,7 @@ def COP(
     *args,
     **kwargs
 ):
+    set_all_seeds()
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -716,7 +727,6 @@ def COP(
     integrators = np.zeros((T_test,))
     covereds = np.zeros((T_test,))
     scale = 0.5
-    np.random.seed(42)
 
     # Run the main loop
     for t in tqdm(range(T_test)):
@@ -765,6 +775,7 @@ def SACI(
     *args,
     **kwargs
 ):
+    set_all_seeds()
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))

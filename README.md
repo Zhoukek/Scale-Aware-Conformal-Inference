@@ -8,6 +8,7 @@ This repository contains the data and code required to reproduce the results in 
 Please clone this repo and run following command locally for install the environment:
 <pre>
 conda create --name SACI python=3.10 -y
+conda activate SACI
 pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu121
 pip install -r requirements.txt
 </pre>
