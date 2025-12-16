@@ -214,3 +214,4 @@ tests/results/logs/ECI_gaussion_logs.zip
 tests/base_test.py
 *.xlsx
 tests/datasets/proc_oral/
+*.npz

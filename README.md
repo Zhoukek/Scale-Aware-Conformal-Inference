@@ -1,4 +1,4 @@
-# Conformal Optimistic Prediction
+# Scale-Aware Conformal Inference
 
 This repository contains the data and code required to reproduce the results in paper **"Scale-Aware Conformal Inference: Adapting to Score Function Dynamics in Time Series Forecasting"**.
 

@@ -11,17 +11,6 @@ from scipy.special import erf
 import matplotlib.pyplot as plt
 from scipy.special import expit
 import random
-import torch
-
-def set_all_seeds(seed=42):
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    if torch.cuda.is_available():
-        torch.cuda.manual_seed_all(seed)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
-
 
 """
     BASELINES
@@ -36,7 +25,6 @@ def trailing_window(
     *args,
     **kwargs
 ):
-    set_all_seeds()
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
     for t in tqdm(range(T_test)):
@@ -99,7 +87,6 @@ def aci(
     *args,
     **kwargs
 ):
-    set_all_seeds()
     T_test = scores.shape[0]
     alphat = alpha
     qs = np.zeros((T_test,))
@@ -176,7 +163,6 @@ def quantile_integrator_log(
     *args,
     **kwargs
 ):
-    set_all_seeds()
     data = kwargs['data'] if 'data' in kwargs.keys() else None
     results = quantile_integrator_log_scorecaster(scores, alpha, lr, data, T_burnin, Csat, KI, True, ahead, proportional_lr=proportional_lr, scorecast=False)
     results['method'] = "Quantile+Integrator (log)"
@@ -191,7 +177,6 @@ def OGD(
     *args,
     **kwargs
 ):
-    set_all_seeds()
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -221,7 +206,6 @@ def SF_OGD(
     *args,
     **kwargs
 ):
-    set_all_seeds()
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -254,7 +238,6 @@ def decay_OGD(
     *args,
     **kwargs
 ):
-    set_all_seeds()
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -298,7 +281,6 @@ def quantile_integrator_log_scorecaster(
     *args,
     **kwargs
 ):
-    set_all_seeds()
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -316,10 +298,11 @@ def quantile_integrator_log_scorecaster(
             scorecasts = np.array([s[int(upper)] for s in data['scorecasts'] ])
             train_model = False
         else:
-            scorecasts = np.load('./.cache/scorecaster/' + kwargs.get('config_name') + '_' + str(upper) + '.npy')
+            scorecasts = np.load('./.cache/scorecaster/{}/'.format(kwargs.get('seed')) + kwargs.get('config_name') + '_' + str(upper) + '.npy')
             train_model = False
     except:
         train_model = True
+
     # Run the main loop
     # At time t, we observe y_t and make a prediction for y_{t+ahead}
     # We also update the quantile at the next time-step, q[t+1], based on information up to and including t_pred = t - ahead + 1.
@@ -377,7 +360,7 @@ def ECI(
     *args,
     **kwargs
 ):
-    set_all_seeds()
+    
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -441,7 +424,7 @@ def ECI_cutoff(
     *args,
     **kwargs
 ):
-    set_all_seeds()
+    
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -502,7 +485,7 @@ def ECI_integral(
     *args,
     **kwargs
 ):
-    set_all_seeds()
+    
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -559,7 +542,7 @@ def full_smoothed_eci(
     *args,
     **kwargs
 ):
-    set_all_seeds()
+    
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -606,7 +589,7 @@ def smoothed_ogd(
     *args,
     **kwargs
 ):
-    set_all_seeds()
+    
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -647,7 +630,7 @@ def LQT(
     *args,
     **kwargs
 ):
-    set_all_seeds()
+    
     T_burnin = kwargs.get('T_burnin', 0)
     T_test = scores.shape[0]
     
@@ -719,7 +702,7 @@ def COP(
     *args,
     **kwargs
 ):
-    set_all_seeds()
+    
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
@@ -775,7 +758,7 @@ def SACI(
     *args,
     **kwargs
 ):
-    set_all_seeds()
+    
     # Initialization
     T_test = scores.shape[0]
     qs = np.zeros((T_test,))
