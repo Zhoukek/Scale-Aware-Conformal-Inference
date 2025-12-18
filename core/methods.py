@@ -341,8 +341,8 @@ def quantile_integrator_log_scorecaster(
     results = {"method": "Quantile+Integrator (log)+Scorecaster", "q" : qs}
     if train_model and scorecast:
         os.makedirs('./.cache/', exist_ok=True)
-        os.makedirs('./.cache/scorecaster/', exist_ok=True)
-        np.save('./.cache/scorecaster/' + kwargs.get('config_name') + '_' + str(upper) + '.npy', scorecasts)
+        os.makedirs('./.cache/scorecaster/{}/'.format(kwargs.get('seed')), exist_ok=True)
+        np.save('./.cache/scorecaster/{}/'.format(kwargs.get('seed')) + kwargs.get('config_name') + '_' + str(upper) + '.npy', scorecasts)
     
     return results
 
@@ -781,6 +781,8 @@ def SACI(
     
             weighted_mean = np.average(np.abs(score_buffer), weights=weights)
             c_t = 1.157 / weighted_mean
+            # c_t = 1.157 / np.average(np.abs(score_buffer))
+          
         else:
             c_t = 1
         
